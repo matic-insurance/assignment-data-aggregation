@@ -1,0 +1,75 @@
+version: 2
+models:
+  - name: stg_leads
+    columns:
+      - name: lead_id
+        description: Primary key of the stg_leads
+        tests:
+          - unique
+          - not_null
+
+  - name: stg_assets
+    columns:
+      - name: asset_id
+        description: Primary key of the stg_assets
+        tests:
+          - unique
+          - not_null
+      
+
+  - name: stg_carriers
+    columns:
+      - name: carrier_id
+        description: Primary key of the stg_carriers
+        tests:
+          - unique
+          - not_null
+
+  - name: stg_home_details
+    columns:
+      - name: home_detail_id
+        description: Primary key of the stg_home_details
+        tests:
+          - unique
+          - not_null
+      - name: home_detail_id
+        description: Foreign key to stg_assets table
+        tests:
+          - not_null
+          - relationships:
+              to: ref('stg_assets')
+              field: details_id
+
+  - name: stg_policies
+    columns:
+      - name: policy_id
+        description: Primary key of the stg_policies
+        tests:
+          - unique
+          - not_null
+
+      - name: asset_id
+        description: Foreign key to stg_assets
+        tests:
+          - not_null
+          - relationships:
+              to: ref('stg_assets')
+              field: asset_id
+
+      - name: lead_id
+        description: Foreign key to stg_leads
+        tests:
+          - not_null
+          - relationships:
+              to: ref('stg_leads')
+              field: lead_id 
+
+      - name: carrier_id
+        description: Foreign key to stg_carriers
+        tests: 
+          - not_null
+          - relationships:
+              to: ref('stg_carriers')
+              field: carrier_id
+   
+

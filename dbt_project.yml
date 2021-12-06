@@ -6,7 +6,7 @@ name: 'test_assignment'
 version: '1.0.0'
 
 # This setting configures which "profile" dbt uses for this project.
-profile: 'matic'
+profile: 'test_assignment'
 
 # These configurations specify where dbt should look for different types of files.
 # The `source-paths` config, for example, states that models in this project can be
@@ -22,7 +22,7 @@ clean-targets:         # directories to be removed by `dbt clean`
     - "target"
     - "dbt_modules"
 
-
+config-version: 2
 # Configuring models
 # Full documentation: https://docs.getdbt.com/docs/configuring-models
 
@@ -32,16 +32,23 @@ clean-targets:         # directories to be removed by `dbt clean`
 
 seeds:
   test_assignment:
-    enabled: true
-    schema: data
+    +enabled: true
+    +schema: data
+
+
 
 models:
   test_assignment:
-    aggregations:
-      schema: aggregations
-      materialized: table
     staging:
       schema: staging
       materialized: table
+      
+    aggregations:
+      schema: aggregations
+      materialized: table
+    
+
+# on-run-end: 'alter table if exists development_data.policies drop  column if exists lead_id_2;'
+
 
 
